@@ -132,18 +132,21 @@ In general, it is associated with code which it is executing until it is forcefu
 Processes are owned by jobs and allow an application that is composed by more than one process to be treated as a single entity, from the perspective of resource and permission limits, as well as lifetime control.
 
  
-目前对下一个月的计划如下
+### 目前对下一个月的计划如下
 目标(可量化):
 1. 和同学合作对zircon object进行unit test，主要包括对象管理器和对象传送器
 2. 详细注释的代码，包括[task](https://github.com/rcore-os/zCore/tree/master/zircon-object/src/task)中的job.rs, process.rs, thread.rs, [ipc](https://github.com/rcore-os/zCore/tree/master/zircon-object/src/ipc)中的channel.rs和fifo.rs
 3. 对代码的分析报告
  
-Week1：对代码进行详细注释，包括[task](https://github.com/rcore-os/zCore/tree/master/zircon-object/src/task)中的job.rs, process.rs, thread.rs, [ipc](https://github.com/rcore-os/zCore/tree/master/zircon-object/src/ipc)中的channel.rs和fifo.rs
+#### Week1：
+对代码进行详细注释，包括[task](https://github.com/rcore-os/zCore/tree/master/zircon-object/src/task)中的job.rs, process.rs, thread.rs, [ipc](https://github.com/rcore-os/zCore/tree/master/zircon-object/src/ipc)中的channel.rs和fifo.rs
 
-Week2：完善task部分的unit test(Process, thread, Job)
+#### Week2：
+完善task部分的unit test(Process, thread, Job)
 问题：对于zircon object如何进行unit test？尚不清楚，需要学习
 
-Week2：出一个task部分的分析报告，作为tutorial的雏形
+#### Week3：
+出一个task部分的分析报告，作为tutorial的雏形
 
 难点：文档是一个整体，同学们之间究竟怎么组织规划？
 
