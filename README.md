@@ -147,6 +147,3 @@ Processes are owned by jobs and allow an application that is composed by more th
 
 #### Week3：
 出一个task部分的分析报告，作为tutorial的雏形
-
-难点：文档是一个整体，同学们之间究竟怎么组织规划？
-
