@@ -85,28 +85,65 @@
 Fuchsia OS 和 Zircon 微内核
 
 内核对象 1.1. 初识内核对象
-1.2. 对象管理器：Process 对象 <zircon-object\src\task\process.rs> job/process/thread
-1.3. 对象传送器：Channel 对象 <zircon-object\src\ipc\channel.rs>
+ 1.2. 对象管理器：Process 对象 <zircon-object\src\task\process.rs> job/process/thread
+ 1.3. 对象传送器：Channel 对象 <zircon-object\src\ipc\channel.rs>
 
 任务管理
-2.1. Zircon 任务管理体系 <zircon-object\src\task>
-2.2. 硬件抽象层与异步运行时 <kernel_hal(bare)> async 《zCore 操作系统内核的设计与实现》中有相关描述
-2.3. 线程管理：Thread 对象 <zircon-object\src\task\thread.rs>std::thread(8.4日)
-2.4. 进程管理：Process 与 Job 对象 <zircon-object\src\task\job.rs> <zircon-object\src\task\job_policy.rs>
+ 2.1. Zircon 任务管理体系 <zircon-object\src\task>
+ 2.2. 硬件抽象层与异步运行时 <kernel_hal(bare)> async 《zCore 操作系统内核的设计与实现》中有相关描述
+ 2.3. 线程管理：Thread 对象 <zircon-object\src\task\thread.rs>std::thread(8.4日)
+ 2.4. 进程管理：Process 与 Job 对象 <zircon-object\src\task\job.rs> <zircon-object\src\task\job_policy.rs>
 
 内存管理
-3.1. Zircon 内存管理模型
-3.2. 物理内存：VMO 对象 <zircon-object\src\vm\vmo\physical.rs>
-3.3. 虚拟内存：VMAR 对象 <zircon-object\src\vm\vmar.rs>
+ 3.1. Zircon 内存管理模型
+ 3.2. 物理内存：VMO 对象 <zircon-object\src\vm\vmo\physical.rs>
+ 3.3. 虚拟内存：VMAR 对象 <zircon-object\src\vm\vmar.rs>
 
 用户程序
-4.1. Zircon 用户程序
-4.2. 加载 ELF 文件 <zircon-object\src\util\elf_loader.rs>
-4.3. 上下文切换
-4.4. 系统调用 <zircon-syscall\src>
+ 4.1. Zircon 用户程序
+ 4.2. 加载 ELF 文件 <zircon-object\src\util\elf_loader.rs>
+ 4.3. 上下文切换
+ 4.4. 系统调用 <zircon-syscall\src>
 
 根据其他同学的分工，虽然大家说可能会重新规划，我可能会被安排写内核对象
-下一周希望能仔细地对[process.rs](https://github.com/rcore-os/zCore/blob/master/zircon-object/src/task/process.rs)的代码进行一个详细的注释
+Zircon is an object-based kernel. User mode code almost exclusively interacts with OS resources via object handles. A handle can be thought of as an active session with a specific OS subsystem scoped to a particular resource.
+
+Zircon actively manages the following resources:
+
+processor time
+memory and address spaces
+device-io memory
+interrupts
+signaling and waiting
+
+Channel
+A channel is a bidirectional transport of messages consisting of some amount of byte data and some number of handles.
+
+A zircon process is an instance of a program in the traditional sense: a set of instructions which will be executed by one or more threads, along with a collection of resources.
+
+Process
+The process object is a container of the following resources:
+
+Handles
+Virtual Memory Address Regions
+Threads
+In general, it is associated with code which it is executing until it is forcefully terminated or the program exits.
+
+Processes are owned by jobs and allow an application that is composed by more than one process to be treated as a single entity, from the perspective of resource and permission limits, as well as lifetime control.
+
+ 
+目前对下一个月的计划如下
+目标(可量化):
+1. 和同学合作对zircon object进行unit test，主要包括对象管理器和对象传送器
+2. 详细注释的代码，包括[task](https://github.com/rcore-os/zCore/tree/master/zircon-object/src/task)中的job.rs, process.rs, thread.rs, [ipc](https://github.com/rcore-os/zCore/tree/master/zircon-object/src/ipc)中的channel.rs和fifo.rs
+3. 对代码的分析报告
+ 
+Week1：对代码进行详细注释，包括[task](https://github.com/rcore-os/zCore/tree/master/zircon-object/src/task)中的job.rs, process.rs, thread.rs, [ipc](https://github.com/rcore-os/zCore/tree/master/zircon-object/src/ipc)中的channel.rs和fifo.rs
+
+Week2：完善task部分的unit test(Process, thread, Job)
+问题：对于zircon object如何进行unit test？尚不清楚，需要学习
+
+Week2：出一个task部分的分析报告，作为tutorial的雏形
 
 难点：文档是一个整体，同学们之间究竟怎么组织规划？
 
